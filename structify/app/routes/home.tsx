@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import Navbar from "../../components/Navbar";
 import {Button} from "../../components/ui/Button";
 import Upload from "../../components/Upload";
+import { MAX_UPLOAD_SIZE_MB } from "../../lib/constants";
 import { ArrowRight } from "lucide-react";
 import { Layers } from "lucide-react";
 import { Clock } from "lucide-react";
@@ -58,7 +59,7 @@ export default function Home() {
                                 <Layers className="icon"/>
                             </div>
                             <h3>Upload your floor plan </h3>
-                            <p>Supports JPG, PNG, formats up to 10MB </p>
+                            <p>Supports JPG, PNG, and WebP formats up to {MAX_UPLOAD_SIZE_MB}MB </p>
                         </div>
                         <Upload onComplete={handleUploadComplete} />
                     </div>
