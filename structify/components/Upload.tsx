@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {useOutletContext} from "react-router";
 import {CheckCircle2, ImageIcon, UploadIcon} from "lucide-react";
-import {PROGRESS_INCREMENT, REDIRECT_DELAY_MS, PROGRESS_INTERVAL_MS} from "../lib/constants";
+import {PROGRESS_INCREMENT, REDIRECT_DELAY_MS, PROGRESS_INTERVAL_MS, MAX_UPLOAD_SIZE_MB, ALLOWED_IMAGE_TYPES} from "../lib/constants";
 
 interface UploadProps {
     onComplete?: (base64Data: string) => void;
@@ -11,6 +11,7 @@ const Upload = ({ onComplete }: UploadProps) => {
     const [file, setFile] = useState<File | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [error, setError] = useState<string | null>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -31,6 +32,29 @@ const Upload = ({ onComplete }: UploadProps) => {
 
     const processFile = useCallback((file: File) => {
         if (!isSignedIn) return;
+
+        // Clear existing timers
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
+        setError(null);
+
+        // Validation
+        if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+            setError("Unsupported file format. Please upload JPG, PNG, or WebP.");
+            return;
+        }
+
+        if (file.size > MAX_UPLOAD_SIZE_MB * 1024 * 1024) {
+            setError(`File is too large. Maximum size is ${MAX_UPLOAD_SIZE_MB}MB.`);
+            return;
+        }
 
         setFile(file);
         setProgress(0);
@@ -81,8 +105,7 @@ const Upload = ({ onComplete }: UploadProps) => {
         if (!isSignedIn) return;
 
         const droppedFile = e.dataTransfer.files[0];
-        const allowedTypes = ['image/jpeg', 'image/png'];
-        if (droppedFile && allowedTypes.includes(droppedFile.type)) {
+        if (droppedFile) {
             processFile(droppedFile);
         }
     };
@@ -122,7 +145,8 @@ const Upload = ({ onComplete }: UploadProps) => {
                                 "Click to upload or just drag and drop"
                             ): ("Sign in or sign up with Puter to upload")}
                         </p>
-                        <p className="help">Maximum file size 50 MB.</p>
+                        <p className="help">Maximum file size {MAX_UPLOAD_SIZE_MB} MB.</p>
+                        {error && <p className="error-message" style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '0.5rem' }}>{error}</p>}
                     </div>
                 </div>
             ) : (
