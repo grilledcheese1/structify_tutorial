@@ -51,7 +51,7 @@ const VisualizerId = () => {
 
     hasInitialGenerated.current = true;
     runGeneration();
-  }, [!initialImage || initialRender])
+  }, [initialImage || initialRender])
 
   return (
       <div className = "visualizer">
@@ -62,7 +62,7 @@ const VisualizerId = () => {
                 <span className="name">Structify</span>
             </div>
             <Button variant="ghost" size="sm" onClick={handleBack}
-            className="exist">
+            className="exit">
                 <X className = "icon"/> Exit Editor
             </Button>
         </nav>

@@ -1,5 +1,6 @@
 import puter from "@heyputer/puter.js";
 import {STRUCTIFY_RENDER_PROMPT} from "./constants";
+interface Generate3DViewParams {sourceImage: string;}
 
 export async function fetchAsDataUrl(url: string): Promise<string> {
   const response = await fetch(url);
