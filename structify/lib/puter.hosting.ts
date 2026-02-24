@@ -46,7 +46,7 @@ StoreHostedImageParams): Promise<HostedAsset | null> => {
 
         const contentType = resolved.contentType || resolved.blob.type || '';
         const ext = getImageExtension(contentType, url);
-        const dir = `projects/${projectId}.${ext}`;
+        const dir = `projects/${projectId}`;
         const filePath = `${dir}/${label}.${ext}`;
 
         const uploadFile = new File([resolved.blob], `${label}.${ext}`, {

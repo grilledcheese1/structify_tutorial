@@ -46,7 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 const DEFAULT_AUTH_STATE: AuthState = {
   isSignedIn: false,
   userName: null,
-  userID: null,
+  userId: null,
 }
 
 export default function App() {
@@ -57,7 +57,7 @@ export default function App() {
       setAuthState({
         isSignedIn: !!user,
         userName: user?.username || null,
-        userID: user?.uuid || null,
+        userId: user?.uuid || null,
       })
 
       return !!user;
@@ -84,8 +84,7 @@ return (
     <main className="min-h-screen bg-background text-foreground relative z-10">
       <Outlet
         context= {{...authState, refreshAuth, signIn, signOut}}
-      />;
-
+      />
     </main>
 )
 }
