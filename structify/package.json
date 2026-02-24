@@ -1,12 +1,15 @@
 {
   "name": "structify",
+  "homepage": "https://grilledcheese1.github.io/structify_tutorial/",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@heyputer/puter.js": "^2.1.0",
