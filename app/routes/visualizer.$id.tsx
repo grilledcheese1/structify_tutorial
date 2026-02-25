@@ -30,7 +30,7 @@ const VisualizerId = () => {
 
       const link = document.createElement('a');
       link.href = currentImage;
-      link.download = `structify-${id || 'design'}.png`;
+      link.download = `Structify-${id || 'design'}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

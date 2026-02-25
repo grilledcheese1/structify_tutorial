@@ -1,11 +1,11 @@
-export const HOSTING_CONFIG_KEY = "structify_hosting_config";
+export const HOSTING_CONFIG_KEY = "Structify_hosting_config";
 export const HOSTING_DOMAIN_SUFFIX = ".puter.site";
 
 export const isHostedUrl = (value: unknown): value is string =>
     typeof value === "string" && value.includes(HOSTING_DOMAIN_SUFFIX);
 
 export const createHostingSlug = () =>
-    `structify-${Date.now().toString(36)}-${Math.random()
+    `Structify-${Date.now().toString(36)}-${Math.random()
         .toString(36)
         .slice(2, 8)}`;
 

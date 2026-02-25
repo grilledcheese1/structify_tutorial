@@ -2,9 +2,9 @@ export const PUTER_WORKER_URL = import.meta.env.VITE_PUTER_WORKER_URL || "";
 
 // Storage Paths
 export const STORAGE_PATHS = {
-    ROOT: "structify",
-    SOURCES: "structify/sources",
-    RENDERS: "structify/renders",
+    ROOT: "Structify",
+    SOURCES: "Structify/sources",
+    RENDERS: "Structify/renders",
 } as const;
 
 // Timing Constants (in milliseconds)
